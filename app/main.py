@@ -129,6 +129,19 @@ async def handle_event(event, db_session_factory):
             "supporting_evidence": result.supporting_evidence,
             "conflicting_evidence": result.conflicting_evidence,
             "computed_at": now.isoformat(),
+            # raw feature snapshot, so the dashboard can show live numbers
+            # (buys/sec, buyers, liquidity, etc.) without a separate call
+            "features": {
+                "age_seconds": feature.age_seconds,
+                "buys_per_second": feature.buys_per_second,
+                "txs_per_second": feature.txs_per_second,
+                "unique_buyers_total": feature.unique_buyers_total,
+                "buy_volume": feature.buy_volume,
+                "price_velocity": feature.price_velocity,
+                "liquidity": feature.liquidity,
+                "holder_growth": feature.holder_growth,
+                "top_holder_share": risk.concentration_score,
+            },
         })
 
 
